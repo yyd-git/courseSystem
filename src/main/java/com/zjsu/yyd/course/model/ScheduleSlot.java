@@ -1,14 +1,20 @@
 package com.zjsu.yyd.course.model;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+@Embeddable
 public class ScheduleSlot {
+
     @NotBlank
     private String dayOfWeek;
+
     @NotBlank
     private String startTime;
+
     @NotBlank
     private String endTime;
+
     @Positive
     private int expectedAttendance;
 

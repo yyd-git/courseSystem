@@ -23,7 +23,7 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public Map<String, Object> getCourseById(@PathVariable String id) {
+    public Map<String, Object> getCourseById(@PathVariable Long id) {
         return success(courseService.getCourseById(id));
     }
 
@@ -34,12 +34,12 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public Map<String, Object> updateCourse(@PathVariable String id, @Validated @RequestBody Course updated) {
+    public Map<String, Object> updateCourse(@PathVariable Long id, @Validated @RequestBody Course updated) {
         return success(courseService.updateCourse(id, updated));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteCourse(@PathVariable String id) {
+    public ResponseEntity<Map<String, Object>> deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(success(null));
     }
@@ -51,4 +51,26 @@ public class CourseController {
         map.put("data", data);
         return map;
     }
+
+    @GetMapping("/{code}")
+    public Map<String, Object> getCourseByCode(@PathVariable String code) {
+        return success(courseService.getCourseByCode(code));
+    }
+
+    /** 模糊搜索课程 */
+    @GetMapping("/search")
+    public Map<String, Object> searchCourses(@RequestParam String keyword) {
+        return success(courseService.searchCourses(keyword));
+    }
+
+    /** 查询有剩余容量的课程 */
+    @GetMapping("/available")
+    public Map<String, Object> getCoursesWithRemainingCapacity() {
+        return success(courseService.getCoursesWithRemainingCapacity());
+    }
+
+
+
+
+
 }

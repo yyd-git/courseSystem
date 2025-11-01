@@ -36,17 +36,17 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public Map<String, Object> getStudentById(@PathVariable String id) {
+    public Map<String, Object> getStudentById(@PathVariable Long id) {
         return success(studentService.getStudentById(id));
     }
 
     @PutMapping("/{id}")
-    public Map<String, Object> updateStudent(@PathVariable String id, @Validated @RequestBody Student student) {
+    public Map<String, Object> updateStudent(@PathVariable Long id, @Validated @RequestBody Student student) {
         return success(studentService.updateStudent(id, student));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteStudent(@PathVariable String id) {
+    public ResponseEntity<Map<String, Object>> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(success(null));
     }

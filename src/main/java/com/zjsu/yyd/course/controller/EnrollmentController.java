@@ -25,8 +25,8 @@ public class EnrollmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> enrollStudent(@RequestParam String studentId,
-                                                             @RequestParam String courseId) {
+    public ResponseEntity<Map<String, Object>> enrollStudent(@RequestParam Long studentId,
+                                                             @RequestParam Long courseId) {
         Enrollment enrollment = service.enrollStudent(studentId, courseId);
         return ResponseEntity.status(HttpStatus.CREATED).body(success(enrollment));
     }
@@ -37,17 +37,17 @@ public class EnrollmentController {
     }
 
     @GetMapping("/student/{studentId}")
-    public Map<String, Object> getByStudent(@PathVariable String studentId) {
+    public Map<String, Object> getByStudent(@PathVariable Long studentId) {
         return success(service.getEnrollmentsByStudent(studentId));
     }
 
     @GetMapping("/course/{courseId}")
-    public Map<String, Object> getByCourse(@PathVariable String courseId) {
+    public Map<String, Object> getByCourse(@PathVariable Long courseId) {
         return success(service.getEnrollmentsByCourse(courseId));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteEnrollment(@PathVariable String id) {
+    public ResponseEntity<Map<String, Object>> deleteEnrollment(@PathVariable Long id) {
         service.deleteEnrollment(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(success(null));
     }

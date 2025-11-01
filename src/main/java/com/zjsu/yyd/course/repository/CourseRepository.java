@@ -1,33 +1,40 @@
 package com.zjsu.yyd.course.repository;
 
 import com.zjsu.yyd.course.model.Course;
+import com.zjsu.yyd.course.model.Instructor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class CourseRepository {
-    private final Map<String, Course> courses = new ConcurrentHashMap<>();
+public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    public List<Course> findAll() {
-        return new ArrayList<>(courses.values());
-    }
+    /** 根据课程编号查找课程 */
+    Optional<Course> findByCode(String code);
 
-    public Optional<Course> findById(String id) {
-        return Optional.ofNullable(courses.get(id));
-    }
+    /** 判断课程编号是否存在 */
+    boolean existsByCode(String code);
 
-    public Course save(Course course) {
-        courses.put(course.getId(), course);
-        return course;
-    }
+    /** 根据教师查询所授课程 */
+    List<Course> findByInstructor(Instructor instructor);
 
-    public void deleteById(String id) {
-        courses.remove(id);
-    }
+    /** 删除某个教师的所有课程（常用于教师删除时的级联操作） */
+    void deleteAllByInstructor(Instructor instructor);
 
-    public boolean existsById(String id) {
-        return courses.containsKey(id);
-    }
+    /** 按标题关键字模糊搜索课程 */
+    @Query("SELECT c FROM Course c WHERE c.title LIKE %:keyword%")
+    List<Course> searchCoursesByTitle(@Param("keyword") String keyword);
+
+    /** 查询仍有剩余容量的课程 */
+    @Query("""
+           SELECT c FROM Course c
+           WHERE c.capacity > (
+               SELECT COUNT(e) FROM Enrollment e WHERE e.course = c
+           )
+           """)
+    List<Course> findCoursesWithRemainingCapacity();
 }
