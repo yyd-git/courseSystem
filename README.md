@@ -195,3 +195,19 @@ DELETE /api/enrollments/{enrollmentId}
 - 使用统一异常处理，保证接口返回一致；
 - 所有接口通过 Swagger 调试验证；
 - 可进一步扩展数据库持久化与权限模块。
+
+
+
+## 六、Docker 部署
+#### 1、构建镜像
+- 项目目录下有 Dockerfile，可执行以下命令：
+- docker compose build
+
+#### 2、启动服务
+- docker compose up -d
+
+#### 3、查看容器状态
+- docker compose ps
+
+
+

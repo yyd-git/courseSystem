@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: course
+  datasource:
+    url: jdbc:mysql://coursehub-mysql:3306/course_db?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 00000712
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
