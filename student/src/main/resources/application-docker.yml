@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: enrollment-service   # 服务名
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/cs_enrollment_db?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 00000712
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848   # Nacos 地址

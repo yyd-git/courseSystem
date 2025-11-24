@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: catalog-service   # 注册到 Nacos 的服务名
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/cs_course_db?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 00000712
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848   # Nacos 服务地址
