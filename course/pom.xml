@@ -98,6 +98,12 @@
 			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
 		</dependency>
 
+		<!-- Actuator，用于健康检查 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 		<!-- Spring Cloud LoadBalancer（用于 RestTemplate @LoadBalanced 调用服务名） -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

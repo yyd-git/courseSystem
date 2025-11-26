@@ -3,19 +3,37 @@ server:
 
 spring:
   application:
-    name: enrollment-service   # 服务名
+    name: enrollment-service
 
   datasource:
-    url: jdbc:mysql://mysql:3306/cs_enrollment_db?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://coursehub-mysql:3306/cs_enrollment_db?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: 00000712
 
   jpa:
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
 
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848   # Nacos 地址
+        server-addr: nacos:8848
+        # 🟢 开启心跳机制（客户端 -> Nacos）
+        heart-beat-interval: 5000
+        heart-beat-timeout: 15000
+        # 🟢 开启健康检查（Nacos -> 服务）
+        health-check-url: /actuator/health
+        # 服务实例的IP和端口，会自动注入
+        # ip:  # 不配置则使用容器IP
+        # port:
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
